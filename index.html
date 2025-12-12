@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IEA Girls Only Register</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      background: #ff2e6a;
+      color: #fff;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #e7225a;
+    }
+    .hidden {
+      display: none;
+    }
+    .msg {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .error { background: #ffe1e1; color: #b40000; }
+    .success { background: #d5ffe1; color: #0f7a20; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Daftar IEA Girls Only 💗</h2>
+
+  <label>Nama:</label>
+  <input type="text" id="name" placeholder="Isi nama asli kamu" />
+
+  <label>Jenis Kelamin:</label>
+  <select id="gender">
+    <option value="">Pilih</option>
+    <option value="female">Perempuan</option>
+    <option value="male">Laki-laki</option>
+    <option value="other">Lainnya</option>
+  </select>
+
+  <label>Umur:</label>
+  <input type="number" id="age" placeholder="Minimal 14 tahun" />
+
+  <label>Foto Selfie:</label>
+  <input type="file" id="photo" accept="image/*" />
+
+  <button onclick="submitForm()">Daftar</button>
+
+  <div id="msg" class="msg hidden"></div>
+</div>
+
+<script>
+  const WA_LINK = "https://chat.whatsapp.com/LhpHGFTanpGGQ9rhZG7Gdz?mode=wwt";
+
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const gender = document.getElementById('gender').value;
+    const age = parseInt(document.getElementById('age').value);
+    const photo = document.getElementById('photo').files[0];
+    const msg = document.getElementById('msg');
+
+    msg.classList.add('hidden');
+
+    if (!name || !gender || !age || !photo) {
+      showError("Semua data wajib diisi!");
+      return;
+    }
+
+    if (gender !== "female") {
+      showError("Maaf! Grup ini hanya untuk perempuan saja.");
+      return;
+    }
+
+    if (age < 14) {
+      showError("Minimal umur harus 14 tahun!");
+      return;
+    }
+
+    showSuccess("Pendaftaran berhasil! Klik link di bawah untuk masuk grup.");
+
+    setTimeout(() => {
+      window.location.href = WA_LINK;
+    }, 1500);
+  }
+
+  function showError(text) {
+    const msg = document.getElementById('msg');
+    msg.className = "msg error";
+    msg.innerHTML = text;
+    msg.classList.remove('hidden');
+  }
+
+  function showSuccess(text) {
+    const msg = document.getElementById('msg');
+    msg.className = "msg success";
+    msg.innerHTML = text;
+    msg.classList.remove('hidden');
+  }
+</script>
+
+</body>
+</html>
